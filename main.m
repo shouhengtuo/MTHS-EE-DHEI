@@ -8,8 +8,8 @@ sample_num = 3000;
 
 %%
 
-folder = '.\MultitaskMultiCriteriaExplicitEncoding2021\';
-objFunction = @multi_criteriaEvaluationFuns2022_2;
+folder = '.\MultitaskMultiCriteriaExplicitEncoding2023\';
+objFunction = @multi_criteriaEvaluationFuns2023;
 dataFile = strcat(folder,'MultiPower4');
 %     A = {'Dim','Power','meanFEs','MeanTime', 'succFEs', 'DimFEs','succTime', 'power1', 'power2', 'power3', 'mdrPower','treePower','TP','FP','TN','FN', 'precision','recall','F_score'};
 %     sheet = 1;
@@ -152,7 +152,7 @@ for dataIndex =[1:4, 9:12]
             
     %% Search k-snp loci using Harmony search algorithm        
            tic;           
-              [Task,NC,flag,DFes] = HS_2022_multiTaskMultiCriteria_ExplicitEncoding3(data,epi_dim,HMS,max_iter,CX,objFunction,K0,K,F);
+              [Task,NC,flag,DFes] = HS_2023_multiTaskMultiCriteria_ExplicitEncoding(data,epi_dim,HMS,max_iter,CX,objFunction,K0,K,F);
               runtime = toc;
 %                 [Candidate,canSize,Nc,runtime,flag] = HS_FOR_multiLOCI12(data,epi_dim,HMS,max_iter,maxIterForLocalSearch,CandidateSize,CX);
              Evalutation_Times = [Evalutation_Times , NC];
@@ -175,7 +175,7 @@ for dataIndex =[1:4, 9:12]
             if flag > 0 && Gtest_score(data(:,CX),data(:,end)) < p_value0
                 power2 = power2 + 1;
                 
-                [CE, CA, PSI,F_score] = MDR_2020_2(data(:,CX),data(:,end));
+                [CE, CA, PSI,F_score] = MDR_2023(data(:,CX),data(:,end));
                TreeAcc = fitnessTreeBagger(data(:,CX),data(:,end));
 
                 for m = 1:length(clsThreshold)
@@ -203,7 +203,7 @@ for dataIndex =[1:4, 9:12]
                                        x = X(j,:);
                                                if Gtest_score(data(:,x),data(:,end)) > p_value0
                                                    TN(1,:) = TN(1,:) + 1;
-                                                   [CE, CA, PSI,F_score] = MDR_2020_2(data(:,x),data(:,end));
+                                                   [CE, CA, PSI,F_score] = MDR_2023(data(:,x),data(:,end));
                                                     TreeAcc = fitnessTreeBagger(data(:,x),data(:,end));
                                                       
                                                          for m = 1:length(clsThreshold)
